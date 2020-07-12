@@ -68,19 +68,7 @@
     // - printFullInfo - выводит в консоль всю информацию о пользователе, разделяя данные точкой с запятой
     // Соответственно функция должна создавать объект из тех данных, которые она получает на вход
 
-    var telBook = {
-        firstName: "",
-        lastName: "",
-        age: null,
-        address: "",
-        phone: {
-            code: null,
-            number: null,
-        },
-        fullName: "",
-    }
-
-    console.log("Display telBook", telBook)
+    var telBook = {};
 
     var firstName = "Max";
     var lastName = "Li";
@@ -89,9 +77,37 @@
     var phoneCode = "+7 (499)";
     var phoneNumber = "123-45-67";
 
-    function fillTelBook(userFirstName, userLasName, userAge, userAddress, userPhoneNumber, userPhoneCode) {
-
+    function fillTelBook(userFirstName, userLasName, userAge, userAddress, userPhoneCode, userPhoneNumber) {
+        var telBookF = {
+            firstName: userFirstName,
+            lastName: userLasName,
+            age: userAge,
+            address: userAddress,
+            phone: {
+                code: userPhoneCode,
+                number: userPhoneNumber,
+            },
+            fullName: userFirstName + " " + userLasName,
+            printUserName: function (firstName, lastName) {
+                console.log("Фамилию -", this.lastName,";", "Имя - ", this.firstName);
+            },
+            printUserAddress: function (address) {
+                console.log("Адрес -", this.address);
+            },
+            printFullInfo: function (firstName, lastName, age, address, phone) {
+                console.log("Все данные ->", this.fullName,";", this.age,";", this.address,";", this.phone.code, this.phone.number);
+            },
+        };
+        return telBookF;
     }
+
+    telBook = fillTelBook(firstName, lastName, age, address,phoneCode, phoneNumber);
+
+    console.log("Вывод содержимого telBook", telBook);
+
+    telBook.printUserName();
+    telBook.printUserAddress();
+    telBook.printFullInfo();
 
 
     // 4) Создать функцию, которая на вход принимает 3 параметра:  userFirstName, userLasName, userAge.
