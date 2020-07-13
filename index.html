@@ -68,7 +68,6 @@
     // - printFullInfo - выводит в консоль всю информацию о пользователе, разделяя данные точкой с запятой
     // Соответственно функция должна создавать объект из тех данных, которые она получает на вход
     console.log("Задание 3");
-    var telBook = {};
 
     var firstName = "Max";
     var lastName = "Li";
@@ -77,31 +76,29 @@
     var phoneCode = "+7 (499)";
     var phoneNumber = "123-45-67";
 
-    function fillTelBook(userFirstName, userLasName, userAge, userAddress, userPhoneCode, userPhoneNumber) {
-        var telBookF = {
-            firstName: userFirstName,
-            lastName: userLasName,
-            age: userAge,
-            address: userAddress,
-            phone: {
+    function FillTelBook(userFirstName, userLasName, userAge, userAddress, userPhoneCode, userPhoneNumber) {
+
+            this.firstName = userFirstName;
+            this.lastName = userLasName;
+            this.age =userAge;
+            this.address = userAddress;
+            this.phone = {
                 code: userPhoneCode,
                 number: userPhoneNumber,
-            },
-            fullName: userFirstName + " " + userLasName,
-            printUserName: function (firstName, lastName) {
-                console.log("Фамилию -", this.lastName,";", "Имя - ", this.firstName);
-            },
-            printUserAddress: function (address) {
+            };
+            this.fullName = userFirstName + " " + userLasName;
+            this.printUserName = function (firstName, lastName) {
+                console.log("Фамилию:", this.lastName,";", "Имя: ", this.firstName);
+            };
+            this.printUserAddress = function (address) {
                 console.log("Адрес -", this.address);
-            },
-            printFullInfo: function (firstName, lastName, age, address, phone) {
+            };
+            this.printFullInfo = function (firstName, lastName, age, address, phone) {
                 console.log("Все данные ->", this.fullName,";", this.age,";", this.address,";", this.phone.code, this.phone.number);
-            },
-        };
-        return telBookF;
+            };
     }
 
-    telBook = fillTelBook(firstName, lastName, age, address,phoneCode, phoneNumber);
+    var telBook = new FillTelBook(firstName, lastName, age, address,phoneCode, phoneNumber);
 
     console.log("Вывод содержимого telBook", telBook);
 
@@ -117,20 +114,15 @@
     // Далее вызвать функцию, которая должна вернуть сформированный объект и затем вывести полученный объект в консоль.
     console.log("Задание 4");
 
-    var myObj = {};
-
-    function myFun1(userFirstName, userLasName, userAge) {
-        var objFun = {
-            firstName: userFirstName,
-            lastName: userLasName,
-            age: userAge,
-        };
-        return objFun;
+    function MyFun1(userFirstName, userLasName, userAge) {
+            this.firstName = userFirstName;
+            this.lastName = userLasName;
+            this.age = userAge;
     }
 
     var proverka = prompt("Проверяем руками Задание 4?");
 
-    if ((proverka === "нет") || (proverka === "no")) {
+    if ((proverka === "нет") || (proverka === "no")) { //что бы не вводить каждый раз данные при проверке следуюх заданий
     var fName = "Владимир";
     var lName = "Сулым";
     age = 35;
@@ -140,7 +132,7 @@
         age = prompt("введите Возраст");
     }
 
-    myObj = myFun1(fName, lName, age);
+    var myObj = new MyFun1(fName, lName, age);
 
     console.log("Вывод полученного объекта в консоль ->", myObj);
 
@@ -169,29 +161,18 @@
         number: "888-00-123",
     }
 
-    var userNew = {}
-
-    function changeTelBook(userData, userPhone) {
-        var telBookF = {
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            age: userData.age,
-            address: userData.address,
-            phone: {
-                code: userData.phone.code,
-                number: userData.phone.number,
-            }
-        };
-        var changePhoneF = {
+    function ChangeTelBook(userData, userPhone) {
+        this.firstName = userData.firstName;
+        this.lastName = userData.lastName;
+        this.age = userData.age;
+        this.address = userData.address;
+        this.phone = {
             code: userPhone.code,
-            number: userPhone.number,
-        };
-        telBookF.phone.code = changePhoneF.code;
-        telBookF.phone.number = changePhoneF.number;
-        return telBookF;
+            phone: userPhone.number,
+        }
     }
 
-    userNew = changeTelBook(userOld, changePhone);
+    var userNew = new ChangeTelBook(userOld, changePhone);
     console.log("Старые данные user ->", userOld)
     console.log("Новые данные user ->", userNew);
 
@@ -206,44 +187,29 @@
     // Если третию юзер описан, тогда, как бы в документ к маме/папе добавляется запись о наличии ребенка.
     console.log("Задание 6");
 
-    var children = "Виталий";
+    var children = {
+        firstName: "Виталий",
+        lastName: "",
+        age: 3,
+    };
 
-    function myFun2(obj1, obj2, obj3=null) {
-        if (obj3 === null) {
-            console.log("Ребенок не добавлен ->", obj1);
-            console.log("Ребенок не добавлен ->", obj2);
+    function myFun2(papa, mama, children=null) {
+        if (children === null) {
+            console.log("Ребенок не добавлен ->", papa);
+            console.log("Ребенок не добавлен ->", mama);
             return false;
         } else {
-            obj1.children = obj3;
-            obj2.children = obj3;
-            console.log("Ребенок добавлен ->", obj1);
-            console.log("Ребенок добавлен ->", obj2);
+            children.lastName = papa.lastName; //даем фамилию отца ребенку
+            papa.children = children;
+            mama.children = children;
+            console.log("Ребенок добавлен ->", papa);
+            console.log("Ребенок добавлен ->", mama);
             return true;
         }
     }
-    myFun2(userNew, userOld, children);
+
     myFun2(userNew, userOld);
     myFun2(userNew, userOld, children);
-
-    var a = {
-        a: 10,
-        b: 12,
-    }
-
-    console.log(a);
-    a.a = 11;
-    a.c = 22;
-
-    console.log(a);
-
-    console.log("Массив с названием свойств ->", Object.keys(a));
-
-    Object.defineProperties(a, {
-        q: { value: 1 },
-        w: { value: 4 },
-    });
-
-    console.log(a);
 
 </script>
 </body>
