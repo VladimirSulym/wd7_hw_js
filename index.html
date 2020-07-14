@@ -195,15 +195,13 @@
 
     function myFun2(papa, mama, children=null) {
         if (children === null) {
-            console.log("Ребенок не добавлен ->", papa);
-            console.log("Ребенок не добавлен ->", mama);
+            console.log("Ребенок не добавлен ->", papa, mama);
             return false;
         } else {
             children.lastName = papa.lastName; //даем фамилию отца ребенку
             papa.children = children;
             mama.children = children;
-            console.log("Ребенок добавлен ->", papa);
-            console.log("Ребенок добавлен ->", mama);
+            console.log("Ребенок добавлен ->", papa, mama);
             return true;
         }
     }
