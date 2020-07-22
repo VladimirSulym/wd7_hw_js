@@ -23,13 +23,14 @@
     // ZZZ - количество элементов равных нулю
 
     var arr1 = [];
+    //var arr1 = [2,'w',3,'s',1,'f','x','t','a','s','d','f','s','x','w'];
 
     var randomVal = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
 
     for (var i = 0; i < 15; i++) {
-    arr1.push(randomVal(-200, 100))}
+    arr1.push(randomVal(-100, 100))}
 
-    console.log("Значение mass1 ->", arr1);
+    console.log("Значение arr1 ->", arr1);
 
     function funUnit1(arrIn) {
         var objRes = {
@@ -39,7 +40,7 @@
         };
         var checkArray = true;
         arrIn.forEach(function (item) {
-            if ((item < -100) || (item > 100)) {
+            if ((item < -100) || (item > 100) || typeof(item) != "number") {
                 checkArray = false;
             }
         });
@@ -62,7 +63,7 @@
         }
     }
 
-    console.log(funUnit1(arr1));
+    console.log("Результат работы funUnit1 ->", funUnit1(arr1));
 
     //2) Дано все тоже самое, что в задаче 1. Создать функцию, которая принимает в качестве параметра
     // обозначенный выше массив и возвращает объект вида:
