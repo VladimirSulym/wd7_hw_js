@@ -22,47 +22,47 @@
     // где NNN - это количество всех положительных чисел, MMM - количество всех отрицательных чисел,
     // ZZZ - количество элементов равных нулю
 
-    var mass1 = [];
+    var arr1 = [];
 
     var randomVal = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
 
     for (var i = 0; i < 15; i++) {
-    mass1.push(randomVal(-100, 100))}
+    arr1.push(randomVal(-200, 100))}
 
-    console.log("Значение mass1 ->", mass1);
+    console.log("Значение mass1 ->", arr1);
 
-    function funUnit1(mass) {
-        var obj1 = {
+    function funUnit1(arrIn) {
+        var objRes = {
             totalPlus: 0,
             totalMinus: 0,
             totalZero: 0,
         };
-        var testMass = true;
-        mass.forEach(function (item) {
+        var checkArray = true;
+        arrIn.forEach(function (item) {
             if ((item < -100) || (item > 100)) {
-                testMass = false;
+                checkArray = false;
             }
         });
-        if (Array.isArray(mass) && (mass.length === 15) && testMass){
-            mass.forEach(function (item) {
+        if (Array.isArray(arrIn) && (arrIn.length === 15) && checkArray){
+            arrIn.forEach(function (item) {
                 if (item < 0) {
-                    obj1.totalMinus++
+                    objRes.totalMinus++
                 } else {
                     if (item > 0) {
-                        obj1.totalPlus++
+                        objRes.totalPlus++
                     } else {
-                        obj1.totalZero++
+                        objRes.totalZero++
                     }
                 }
             });
-            return obj1;
+            return objRes;
         } else {
             console.log("ОШИБКА! Данные не удовлетворяют требованиям");
             return null;
         }
     }
 
-    console.log(funUnit1(mass1));
+    console.log(funUnit1(arr1));
 
     //2) Дано все тоже самое, что в задаче 1. Создать функцию, которая принимает в качестве параметра
     // обозначенный выше массив и возвращает объект вида:
