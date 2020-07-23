@@ -23,14 +23,16 @@
     // ZZZ - количество элементов равных нулю
 
     var arr1 = [];
-    //var arr1 = [2,'w',3,'s',1,'f','x','t','a','s','d','f','s','x','w'];
+    //var arr1 = [2,'w',3,'s',1,'f','x','t','a','s','d','f','s','x','w']; //для проверки "защита от дурака"
 
     var randomVal = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
 
     for (var i = 0; i < 15; i++) {
-    arr1.push(randomVal(-100, 100))}
+    arr1.push(randomVal(-10, 10))}
 
     console.log("Значение arr1 ->", arr1);
+
+    console.log("Задание 1")
 
     function funUnit1(arrIn) {
         var objRes = {
@@ -70,7 +72,35 @@
     //{sumPlus: NNN, sumMinus: MMM}
     //где NNN - это сумма всех положительных чисел, MMM - сумма всех отрицательных чисел
 
+    console.log("Задание 2")
 
+    function funUnit2(arrIn) {
+        var objRes = {
+            sumPlus: 0,
+            sumMinus: 0,
+        };
+        var checkArray = true;
+        arrIn.forEach(function (item) {
+            if ((item < -100) || (item > 100) || typeof(item) != "number") {
+                checkArray = false;
+            }
+        });
+        if (Array.isArray(arrIn) && (arrIn.length === 15) && checkArray){
+            arrIn.forEach(function (item) {
+                if (item < 0) {
+                    objRes.sumMinus += item;
+                } else {
+                    objRes.sumPlus += item;
+                }
+            });
+            return objRes;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null;
+        }
+    }
+
+    console.log("Результат работы funUnit2 ->", funUnit2(arr1));
 
     //3) Дано все тоже самое, что в задаче 1. Создать функцию, которая принимает в качестве параметра обозначенный
     // выше массив, а так же 2й и 3й параметры - это диапазон A-B, в пределах которого выполняется работа функции.
@@ -79,10 +109,51 @@
     //где NNN - это количество всех положительных чисел, MMM - количество всех отрицательных чисел,
     // ZZZ - количество элементов равных нулю. При этом поиск элементов производить строго в заданном диапазоне А-В.
 
+    console.log("Задание 3")
 
+    //Вариант 1
+    function funUnit3(arrIn, A, B) {
+        var objRes = {
+            totalPlus: 0,
+            totalMinus: 0,
+            totalZero: 0,
+        };
+        var arrInSlice = arrIn.slice(A,B)
+        var checkArray = true;
+        arrIn.forEach(function (item) {
+            if ((item < -100) || (item > 100) || typeof(item) != "number") {
+                checkArray = false;
+            }
+        });
+        if (Array.isArray(arrIn) && (arrIn.length === 15) && checkArray){
+            arrInSlice.forEach(function (item) {
+                if (item < 0) {
+                    objRes.totalMinus++
+                } else {
+                    if (item > 0) {
+                        objRes.totalPlus++
+                    } else {
+                        objRes.totalZero++
+                    }
+                }
+            });
+            return objRes;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null;
+        }
+    }
 
+    console.log("Результат работы funUnit3 Вариант 1 ->", funUnit3(arr1,2,7));
 
+    //Вариант 2
+    function funUnit3_1(arrIn, A, B) {
+        var arrInSlice = arrIn.slice(A, B);
+        arrInSlice.length = 15; // для прохождения проверки в funUnit1 по длине массива - не влияет на результат работы
+        return funUnit1(arrInSlice);
+    }
 
+    console.log("Результат работы funUnit3 Вариант 2 ->", funUnit3_1(arr1,1,5));
 
 
     //4) Дана строка содержащая произвольный текст (буквы, цифры и др символы). Сделать функцию, которая
@@ -103,19 +174,11 @@
 
 
 
-
-
-
-
     //6) Дано произвольное число, необходимо удалить из него заданные цифры. Для этого реализовать функцию,
     // которая принимает на вход 2 параметра: 1й - заданное число, 2й - число - цифры которые нужно удалит из
     // числа первого параметра. Обратите внимание, что функция должна успешно обрабатывать на вход как числа так
     // и строки с числом (тип string и тип number). Функция должна вернуть результат - новое число (тип number)
     // в котором отсутствуют цифры из числа 2го параметра.
-
-
-
-
 
 
 
