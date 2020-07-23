@@ -15,11 +15,12 @@
     // передать ей в качестве значений параметров переменные name и age, затем вывести в консоль результат выполнения
     // функции printUser.
     console.log("Задание 1");
+
     var user = "Иваныч";
     var age = 20;
 
     function printUser(userName, userAge) {
-        console.log("Пользователь", userName, ", возраст", userAge);
+        console.log("Пользователь " + userName + ", возраст" + userAge);
     }
 
     printUser(user, age);
@@ -37,15 +38,16 @@
     // Далее вызвать 2 раза функцию, первый раз передать ей на вход 3 аргумента, второй раз только 2 аргумента
     // (т.е. без userGender), затем вывести в консоль результат выполнения функции printUserInfo.
     console.log("Задание 2");
+
     user = "Иваныч";
     age = 20;
     var gender = "male";
 
-    function printUserInfo(userName, userAge, userGender=null) {
+    function printUserInfo(userName, userAge, userGender = null) {
         if (userGender === null) {
-            console.log("Пользователь", userName, ", возраст", userAge);
+            console.log("Пользователь " + userName + ", возраст " + userAge);
         } else {
-            console.log("Пользователь", userName, ", возраст", userAge, "пол", userGender);
+            console.log("Пользователь " + userName + ", возраст " + userAge + " пол " + userGender);
         }
     }
 
