@@ -252,11 +252,12 @@
     console.log("Задание 6");
 
     var str3 = "1236747547459868657";
-    var str4 = 222246;
+    var str4 = 212246;
 
     function funUnit6 (strIn1, strIn2) {
-        var res = strIn1;
+        var res = String (strIn1);
         strIn2 = String (strIn2);
+
         function funInFunUnit6 (strIn, elem){
             var res1 ="";
             for (var i = 0; i < strIn.length; i++) {
@@ -266,10 +267,17 @@
             }
             return res1;
         }
-        for (var k = 0; k < strIn2.length; k++){
-            res = funInFunUnit6(res, strIn2[k]);
+
+        if (!isNaN(+strIn1) && !isNaN(+strIn2)){
+            for (var k = 0; k < strIn2.length; k++){
+                res = funInFunUnit6(res, strIn2[k]);
+            }
+            return +res;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return +res;
+
     }
     console.log("Дана строка ->", str3);
     console.log("Число для удаления ->", str4)
@@ -285,13 +293,19 @@
     var num = 123087875637;
 
     function funUnit7 (numIn) {
-        var str = String (numIn);
-        console.log(str);
-        var res = 0;
-        for (var i = 1; i <= 2; i++) {
-            res = res+(+str[i-1])+(+str[str.length-i]);
+        if (typeof (numIn) === "number"){
+            var str = String (numIn);
+            console.log(str);
+            var res = 0;
+            for (var i = 1; i <= 2; i++) {
+                res = res+(+str[i-1])+(+str[str.length-i]);
+            }
+            return res;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return res;
+
     }
 
     console.log("Дано число ->", num);
@@ -306,22 +320,28 @@
     var str5 = "123mmohs(((****gnnnb777sfkjjjj000lkjshhhfgb";
 
     function funUnit8 (strIn) {
-        var countDel = 0; //счетчик удаления
-        var countArr = 0; //счетчик состояния нового массива
-        var arr = strIn.split('');
-        for (var i = 0; i < strIn.length; i++){
-            if (arr[countArr] === arr[countArr+1]) {
-                arr.splice(countArr+1, 1);
-                countDel++;
-            } else { if (countDel > 0){
-                arr.splice(countArr, 1);
-                countDel = 0;
-            } else {
-                countArr++;
+        if (typeof (strIn) === "string") {
+            var countDel = 0; //счетчик удаления
+            var countArr = 0; //счетчик состояния нового массива
+            var arr = strIn.split('');
+            for (var i = 0; i < strIn.length; i++){
+                if (arr[countArr] === arr[countArr+1]) {
+                    arr.splice(countArr+1, 1);
+                    countDel++;
+                } else { if (countDel > 0){
+                    arr.splice(countArr, 1);
+                    countDel = 0;
+                } else {
+                    countArr++;
+                }
+                }
             }
-            }
+            return arr.join('');
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-    return arr.join('');
+
     }
 
     console.log("Дана строка ->", str5);
@@ -335,21 +355,38 @@
 
     console.log("Задание 9");
 
-    var numDel = 56;
+    var numDel = 66;
 
-    function funUnit9 (arrIn, numDel) {
-        var countDel = 0;
-        arrIn.forEach(function (item, index) {
-            if (item < numDel) {
-                arrIn.splice(index, 1);
-                countDel++;
+    var arr10 = [11,2324,23,24,25, "kjbjj"];
+
+    function checkArrNumber(arrIn) {
+        var checkArr = true;
+        arrIn.forEach(function (item) {
+            if (typeof (item) !== "number"){
+                checkArr = false;
             }
         });
-        return countDel !== 0;
+        return checkArr;
+    }
+
+    function funUnit9 (arrIn, numDel) {
+        if (checkArrNumber(arrIn)) {
+            var countDel = 0;
+            arrIn.forEach(function (item, index) {
+                if (item < numDel) {
+                    arrIn.splice(index, 1);
+                    countDel++;
+                }
+            });
+            return countDel !== 0;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
+        }
     }
 
     console.log("Число для удаления из массива первого задания ->", numDel);
-    console.log("Результат работы funUnit9 ->", funUnit9(arr1, numDel));
+    console.log("Результат работы funUnit9 ->", funUnit9(arr10, numDel));
 
     //10) Дан массив чисел произвольной длинны. Сделать функцию, которая удаляет из исходного массива повторяющиеся
     // цифры в числе (новый массив НЕ делать). Функция должна возвращать результат в виде true/false: true - если
@@ -360,21 +397,27 @@
     var arr2 = [2, 34, 55, 12, -115598, 33, -45, 3239900645, 8722, -11]
 
     function funUnit10 (arrIn) {
-        var countDel = 0;
-        arrIn.forEach(function (item, index) {
-            var str = funUnit8(String(item));
-            if (String(item) !== str) {
-                if (((+str) === 0) || (isNaN(+str))) {
-                    arrIn.splice(index, 1);
-                    countDel++;
-                } else {
-                    arrIn.splice(index, 1, (+str));
-                    countDel++;
+        if (checkArrNumber(arrIn)){
+            var countDel = 0;
+            arrIn.forEach(function (item, index) {
+                var str = funUnit8(String(item));
+                if (String(item) !== str) {
+                    if (((+str) === 0) || (isNaN(+str))) {
+                        arrIn.splice(index, 1);
+                        countDel++;
+                    } else {
+                        arrIn.splice(index, 1, (+str));
+                        countDel++;
+                    }
                 }
-            }
-        });
-        console.log("Результирующий массив ->", arrIn);
-        return countDel !== 0;
+            });
+            console.log("Результирующий массив ->", arrIn);
+            return countDel !== 0;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
+        }
+
     }
 
     console.log("Дан массив ->", arr2);
@@ -393,20 +436,25 @@
     var arr3 = [2, 34, 55, 12, -118, 33, -45, 45, 55, 45, 55, 22, -11];
 
     function funUnit11 (arrIn) {
-        var res = [];
-        arrIn.sort((a, b) => a - b);
-        console.log("Результат сортировки ->", arrIn);
-        for (var i = arrIn.length; 0 < i; i--) {
-            if (arrIn[i-1] !== arrIn[i-2]) {
-                res.push(arrIn[i-1], arrIn[i-2]);
-                break;
+        if (checkArrNumber(arrIn)){
+            var res = [];
+            arrIn.sort((a, b) => a - b);
+            console.log("Результат сортировки ->", arrIn);
+            for (var i = arrIn.length; 0 < i; i--) {
+                if (arrIn[i-1] !== arrIn[i-2]) {
+                    res.push(arrIn[i-1], arrIn[i-2]);
+                    break;
+                }
             }
+            return res
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return res
+
     }
     console.log("Дан массив ->", arr3);
     console.log("Результат работы funUnit11 ->", funUnit11 (arr3));
-
 
     //12) Дан массив чисел произвольной длинны. Сделать функцию, которая принимает на вход указанный выше массив,
     // а так же второй параметр - переменную-флаг (может иметь значение "+" либо "-"). Функция должна удалить из
@@ -419,24 +467,30 @@
     var flag2 = prompt("Введите FLAG для Задания 12 в виде + или -", "+");
 
     var arr4 = [2, 34, 55, 12, -118, 33, -45, 45, 55, 45, 55, 22, -11];
-    // var arr4 = [0, 0];
+    //var arr4 = [0, 0];
 
     function funUnit12 (arrIn, flagIn) {
-        var countDel = 0;
-        arrIn.forEach(function (item, index) {
-            if (flagIn === "-"){
-                if (item < 0){
-                    arrIn.splice(index, 1);
-                    countDel++;
+        if (checkArrNumber(arrIn)){
+            var countDel = 0;
+            arrIn.forEach(function (item, index) {
+                if (flagIn === "-"){
+                    if (item < 0){
+                        arrIn.splice(index, 1);
+                        countDel++;
+                    }
+                } else {
+                    if (item > 0) {
+                        arrIn.splice(index, 1);
+                        countDel++;
+                    }
                 }
-            } else {
-                if (item > 0) {
-                    arrIn.splice(index, 1);
-                    countDel++;
-                }
-            }
-        });
-        return countDel !== 0;
+            });
+            return countDel !== 0;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
+        }
+
     }
     console.log("Дан массив ->", arr4);
     console.log("Результат работы funUnit12 ->", funUnit12 (arr4, flag2));
@@ -453,21 +507,29 @@
     var str6 = "Дана строка произвольного текста. Сделать функцию, текущая которая принимает утекающая на вход указанный выше текст";
 
     var flag3 = prompt("Строка подтекста для задания 13", "тек");
+    //var flag3 = 123213;
 
     //Вариант 1
 
     function funUnit13_1 (strIn, flagIn){
-        var posDel = 0;
-        var countDel = 0;
-        while (true) {
-            if (strIn.indexOf(flagIn) > 0){
-                posDel = strIn.indexOf(flagIn) + flagIn.length;
-                strIn = strIn.slice(posDel);
-                countDel++;
-            } else {break}
+        if ((typeof (strIn) === "string") &&(typeof (flagIn) === "string")) {
+            var posDel = 0;
+            var countDel = 0;
+            while (true) {
+                if (strIn.indexOf(flagIn) > 0) {
+                    posDel = strIn.indexOf(flagIn) + flagIn.length;
+                    strIn = strIn.slice(posDel);
+                    countDel++;
+                } else {
+                    break
+                }
 
+            }
+            return countDel;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return countDel;
     }
 
     console.log("Дана строка ->", str6);
@@ -477,20 +539,27 @@
     //Вариант 2
 
     function funUnit13_2(strIn, flagIn) {
-        var countInt = 0;
-        for (var i = 0; i < strIn.length; i++){
-            if (strIn[i] === flagIn[0]){
-                for (var k = 0; k < flagIn.length; k++) {
-                    if (strIn[i+k] === flagIn[k]){
-                        if (flagIn.length === k+1){
-                            countInt++;
+        if ((typeof (strIn) === "string") &&(typeof (flagIn) === "string")) {
+            var countInt = 0;
+            for (var i = 0; i < strIn.length; i++) {
+                if (strIn[i] === flagIn[0]) {
+                    for (var k = 0; k < flagIn.length; k++) {
+                        if (strIn[i + k] === flagIn[k]) {
+                            if (flagIn.length === k + 1) {
+                                countInt++;
+                            }
+                        } else {
+                            break
                         }
-                    }else {break}
+                    }
                 }
-            }
 
+            }
+            return countInt;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return countInt;
     }
 
     console.log("Дана строка ->", str6);
@@ -532,24 +601,41 @@
         mt10.push(randomVal(a, b));
     }
 
+    mat[5][3] = 25; //проверка работы
+    //mat[5][3] = "kdmsldm"; //проверка от дурака
 
     function funUnit14 (matIn) {
-        var res = {
-            index: 0,
-            sum: 0,
-        }
 
         for (var i = 0; i < matIn.length; i++){
-            var sumTemp = 0;
-            for (var j = 0; j < matIn[i].length; j++){
-                sumTemp += matIn[i][j];
+            var checkMat = true;
+            checkMat = checkArrNumber(matIn[i]);
+            if (checkMat === false) {
+                break
             }
-            if (res.sum < sumTemp) {
-                res.sum = sumTemp;
-                res.index = i;
             }
+
+        if (checkMat){
+            var res = {
+                index: 0,
+                sum: 0,
+            }
+
+            for (var i = 0; i < matIn.length; i++){
+                var sumTemp = 0;
+                for (var j = 0; j < matIn[i].length; j++){
+                    sumTemp += matIn[i][j];
+                }
+                if (res.sum < sumTemp) {
+                    res.sum = sumTemp;
+                    res.index = i;
+                }
+            }
+            return res;
+        }else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return res;
+
     }
 
     console.log("Дана матрица ->", mat);
@@ -560,22 +646,35 @@
     console.log("Задание 15");
 
     function funUnit15 (matIn) {
-        var res = {
-            index: 0,
-            sum: 0,
+        for (var i = 0; i < matIn.length; i++){
+            var checkMat = true;
+            checkMat = checkArrNumber(matIn[i]);
+            if (checkMat === false) {
+                break
+            }
         }
 
-        for (var i = 0; i < matIn.length; i++){
-            var sumTemp = 0;
-            for (var j = 0; j < matIn[i].length; j++){
-                sumTemp += matIn[j][i];
+        if (checkMat){
+            var res = {
+                index: 0,
+                sum: 0,
             }
-            if (res.sum < sumTemp) {
-                res.sum = sumTemp;
-                res.index = i;
+
+            for (var i = 0; i < matIn.length; i++){
+                var sumTemp = 0;
+                for (var j = 0; j < matIn[i].length; j++){
+                    sumTemp += matIn[j][i];
+                }
+                if (res.sum < sumTemp) {
+                    res.sum = sumTemp;
+                    res.index = i;
+                }
             }
+            return res;
+        }else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
         }
-        return res;
     }
 
     console.log("Дана матрица ->", mat);
