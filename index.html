@@ -42,7 +42,7 @@
         };
         var checkArray = true;
         arrIn.forEach(function (item) {
-            if ((item < -100) || (item > 100) || typeof item !== "number") {
+            if ((item < -100) || (item > 100) || typeof(item) !== "number") {
                 checkArray = false;
             }
         });
@@ -81,7 +81,7 @@
         };
         var checkArray = true;
         arrIn.forEach(function (item) {
-            if ((item < -100) || (item > 100) || typeof item != "number") {
+            if ((item < -100) || (item > 100) || typeof(item) != "number") {
                 checkArray = false;
             }
         });
@@ -121,7 +121,7 @@
         var arrInSlice = arrIn.slice(A,B)
         var checkArray = true;
         arrIn.forEach(function (item) {
-            if ((item < -100) || (item > 100) || typeof item != "number") {
+            if ((item < -100) || (item > 100) || typeof(item) != "number") {
                 checkArray = false;
             }
         });
@@ -293,7 +293,7 @@
     var num = 123087875637;
 
     function funUnit7 (numIn) {
-        if (typeof numIn === "number"){
+        if (typeof (numIn) === "number"){
             var str = String (numIn);
             console.log(str);
             var res = 0;
@@ -320,7 +320,7 @@
     var str5 = "123mmohs(((****gnnnb777sfkjjjj000lkjshhhfgb";
 
     function funUnit8 (strIn) {
-        if (typeof strIn === "string") {
+        if (typeof (strIn) === "string") {
             var countDel = 0; //счетчик удаления
             var countArr = 0; //счетчик состояния нового массива
             var arr = strIn.split('');
@@ -362,7 +362,7 @@
     function checkArrNumber(arrIn) {
         var checkArr = true;
         arrIn.forEach(function (item) {
-            if (typeof item !== "number"){
+            if (typeof (item) !== "number"){
                 checkArr = false;
             }
         });
@@ -512,7 +512,7 @@
     //Вариант 1
 
     function funUnit13_1 (strIn, flagIn){
-        if ((typeof strIn === "string") &&(typeof flagIn === "string")) {
+        if ((typeof (strIn) === "string") &&(typeof (flagIn) === "string")) {
             var posDel = 0;
             var countDel = 0;
             while (true) {
@@ -539,7 +539,7 @@
     //Вариант 2
 
     function funUnit13_2(strIn, flagIn) {
-        if ((typeof strIn === "string") &&(typeof flagIn === "string")) {
+        if ((typeof (strIn) === "string") &&(typeof (flagIn) === "string")) {
             var countInt = 0;
             for (var i = 0; i < strIn.length; i++) {
                 if (strIn[i] === flagIn[0]) {
