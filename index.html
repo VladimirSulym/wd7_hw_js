@@ -194,7 +194,8 @@
                     //!isNaN(strIn[i]) ? newStrfun += strIn[i]:""; - не фэншуйный вариант
                     newStrfun += !isNaN(strIn[i]) ? strIn[i]:"";
                 } else {
-                    (ind >= simAbig && ind <= simZbig) || (ind >= simAsmall && ind <= simZsmall) || (ind >= simAbigrus && ind <= simYbigrus) || (ind >= simAsmallrus && ind <= simYsmallrus) ? newStrfun += strIn[i]:"";
+                    //(ind >= simAbig && ind <= simZbig) || (ind >= simAsmall && ind <= simZsmall) || (ind >= simAbigrus && ind <= simYbigrus) || (ind >= simAsmallrus && ind <= simYsmallrus) ? newStrfun += strIn[i]:"";
+                    newStrfun += (ind >= simAbig && ind <= simZbig) || (ind >= simAsmall && ind <= simZsmall) || (ind >= simAbigrus && ind <= simYbigrus) || (ind >= simAsmallrus && ind <= simYsmallrus) ? strIn[i]:"";
                 }
             }
             return newStrfun;
