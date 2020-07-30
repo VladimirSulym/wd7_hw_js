@@ -14,8 +14,6 @@
     // параметрах не удовлетворяют требованиям - выводить сообщение об ошибке в консоль и прекращать работу функции
     // (возвращать null)
 
-
-
     //1) Дан массив длинною 15 элементов, значения для элементов массива подобрать произвольным образом в интервале
     // от -100 до 100. Создать функцию, которая принимает в качестве параметра обозначенный выше массив и возвращает объект вида:
     //{totalPlus: NNN, totalMinus: MMM, totalZero: ZZZ}
@@ -67,146 +65,6 @@
 
     console.log("Результат работы funUnit1 ->", funUnit1(arr1));
 
-    //2) Дано все тоже самое, что в задаче 1. Создать функцию, которая принимает в качестве параметра
-    // обозначенный выше массив и возвращает объект вида:
-    //{sumPlus: NNN, sumMinus: MMM}
-    //где NNN - это сумма всех положительных чисел, MMM - сумма всех отрицательных чисел
-
-    console.log("Задание 2")
-
-    function funUnit2(arrIn) {
-        var objRes = {
-            sumPlus: 0,
-            sumMinus: 0,
-        };
-        var checkArray = true;
-        arrIn.forEach(function (item) {
-            if ((item < -100) || (item > 100) || typeof(item) != "number") {
-                checkArray = false;
-            }
-        });
-        if (Array.isArray(arrIn) && (arrIn.length === 15) && checkArray){
-            arrIn.forEach(function (item) {
-                if (item < 0) {
-                    objRes.sumMinus += item;
-                } else {
-                    objRes.sumPlus += item;
-                }
-            });
-            return objRes;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null;
-        }
-    }
-
-    console.log("Результат работы funUnit2 ->", funUnit2(arr1));
-
-    //3) Дано все тоже самое, что в задаче 1. Создать функцию, которая принимает в качестве параметра обозначенный
-    // выше массив, а так же 2й и 3й параметры - это диапазон A-B, в пределах которого выполняется работа функции.
-    // Функция должна вернуть объект вида:
-    //{totalPlus: NNN, totalMinus: MMM, totalZero: ZZZ}
-    //где NNN - это количество всех положительных чисел, MMM - количество всех отрицательных чисел,
-    // ZZZ - количество элементов равных нулю. При этом поиск элементов производить строго в заданном диапазоне А-В.
-
-    console.log("Задание 3");
-
-    //Вариант 1
-    function funUnit3(arrIn, A, B) {
-        var objRes = {
-            totalPlus: 0,
-            totalMinus: 0,
-            totalZero: 0,
-        };
-        var arrInSlice = arrIn.slice(A,B)
-        var checkArray = true;
-        arrIn.forEach(function (item) {
-            if ((item < -100) || (item > 100) || typeof(item) != "number") {
-                checkArray = false;
-            }
-        });
-        if (Array.isArray(arrIn) && (arrIn.length === 15) && checkArray){
-            arrInSlice.forEach(function (item) {
-                if (item < 0) {
-                    objRes.totalMinus++
-                } else {
-                    if (item > 0) {
-                        objRes.totalPlus++
-                    } else {
-                        objRes.totalZero++
-                    }
-                }
-            });
-            return objRes;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null;
-        }
-    }
-
-    console.log("Результат работы funUnit3 Вариант 1 ->", funUnit3(arr1,2,7));
-
-    //Вариант 2
-    function funUnit3_1(arrIn, A, B) {
-        if (arrIn.length === 15) {
-            var arrInSlice = arrIn.slice(A, B);
-            arrInSlice.length = 15; // для прохождения проверки в funUnit1 по длине массива - не влияет на результат работы
-            return funUnit1(arrInSlice);
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null;
-        }
-    }
-
-    console.log("Результат работы funUnit3 Вариант 2 ->", funUnit3_1(arr1,1,5));
-
-    //4) Дана строка содержащая произвольный текст (буквы, цифры и др символы). Сделать функцию, которая
-    // принимает на вход первым параметром переменную со строкой текста, вторым параметром переменную-флаг
-    // (может иметь значение "D" либо "S"). Функция должна производить фильтрацию полученной строки и возвращать
-    // результат (новую отфильтрованную строку) в зависимости от переменной-флага.
-    // Если переменная-флаг имеет значение равное "D" - нужно оставить только цифры.
-    // Если переменная-флаг имеет значение равное "S"- нужно оставить только буквы в диапазонах A-Za-zА-Яа-я.
-
-    console.log("Задание 4");
-
-    var str1 = "s63ываmfi-3mAдоыв*&^а8ы|1ыва$ываF63(lW34fg2KDTываF3oid84dg";
-
-    var flag = prompt("Введите FLAG для Задания 4 в виде D или S", "D");
-
-
-    // определение границ кодов
-    var simAbig = "A".codePointAt(0);
-    var simZbig = "Z".codePointAt(0);
-    var simAsmall = "a".codePointAt(0);
-    var simZsmall = "z".codePointAt(0);
-    var simAbigrus = "А".codePointAt(0);
-    var simYbigrus = "Я".codePointAt(0);
-    var simAsmallrus = "а".codePointAt(0);
-    var simYsmallrus = "я".codePointAt(0);
-
-    function funUnit4(strIn, flagIn) {
-        var newStrfun = "";
-        var ind = 0; // для уменьшения кода
-        if (flagIn.codePointAt(0) === 68 || flagIn.codePointAt(0) === 83) {
-            for (var i = 0; i < strIn.length; i++) {
-                ind = strIn[i].codePointAt(0);
-                if (flagIn.codePointAt(0) === 68){
-                    //!isNaN(strIn[i]) ? newStrfun += strIn[i]:""; - не фэншуйный вариант
-                    newStrfun += !isNaN(strIn[i]) ? strIn[i]:"";
-                } else {
-                    //(ind >= simAbig && ind <= simZbig) || (ind >= simAsmall && ind <= simZsmall) || (ind >= simAbigrus && ind <= simYbigrus) || (ind >= simAsmallrus && ind <= simYsmallrus) ? newStrfun += strIn[i]:"";
-                    newStrfun += (ind >= simAbig && ind <= simZbig) || (ind >= simAsmall && ind <= simZsmall) || (ind >= simAbigrus && ind <= simYbigrus) || (ind >= simAsmallrus && ind <= simYsmallrus) ? strIn[i]:"";
-                }
-            }
-            return newStrfun;
-        } else {
-            console.log("Введен не верный FLAG")
-            return null;
-        }
-    }
-    console.log("Дана строка ->", str1);
-    console.log("Результат работы funUnit4 ->", funUnit4(str1, flag));
-
     //5) Дана строка содержащая произвольной длинны число в виде текста. Создать функцию, которая принимает на
     // вход первым параметром переменную с текстом, вторым параметром переменную-флаг (может быть равной "AZ" либо "ZA").
     // Функция должна отсортировать цифры из переменной с "текстом-числом" в зависимости от переменной-флага:
@@ -243,47 +101,6 @@
     }
     console.log("Дана строка ->", str2);
     console.log("Результат работы funUnit5 ->", funUnit5(str2, flag1));
-
-    //6) Дано произвольное число, необходимо удалить из него заданные цифры. Для этого реализовать функцию,
-    // которая принимает на вход 2 параметра: 1й - заданное число, 2й - число - цифры которые нужно удалит из
-    // числа первого параметра. Обратите внимание, что функция должна успешно обрабатывать на вход как числа так
-    // и строки с числом (тип string и тип number). Функция должна вернуть результат - новое число (тип number)
-    // в котором отсутствуют цифры из числа 2го параметра.
-
-    console.log("Задание 6");
-
-    var str3 = "1236747547459868657";
-    var str4 = 212246;
-
-    function funUnit6 (strIn1, strIn2) {
-        var res = String (strIn1);
-        strIn2 = String (strIn2);
-
-        function funInFunUnit6 (strIn, elem){
-            var res1 ="";
-            for (var i = 0; i < strIn.length; i++) {
-                if (strIn[i] !== elem) {
-                    res1 += strIn[i];
-                }
-            }
-            return res1;
-        }
-
-        if (!isNaN(+strIn1) && !isNaN(+strIn2)){
-            for (var k = 0; k < strIn2.length; k++){
-                res = funInFunUnit6(res, strIn2[k]);
-            }
-            return +res;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-
-    }
-    console.log("Дана строка ->", str3);
-    console.log("Число для удаления ->", str4)
-    console.log ("Результат работы funUnit6 ->", funUnit6(str3, str4));
-
 
     //7) Дано произвольное число разрядностью больше 5 (тип данных number). Необходимо сделать функцию, которая
     // считает сумму определенных цифр числа, полученного на вход, а именно  цифры 1я, 2я и последняя и предпоследняя.
@@ -348,47 +165,6 @@
     console.log("Дана строка ->", str5);
     console.log("Результат работы funUnit8 ->", funUnit8(str5));
 
-
-    //9) Дан массив чисел произвольной длинны. Сделать функцию, которая принимает на вход указанный выше массив и
-    // удаляет из исходного массив (новый массив НЕ делать) все числа, которые меньше числа, переданного функции
-    // в качестве второго параметра. Функция должна возвращать результат в виде true/false: true - если был удален,
-    // хотя бы 1 элемент, false - если не нашлось что удалить.
-
-    console.log("Задание 9");
-
-    var numDel = 66;
-
-    var arr10 = [11,2324,23,24,25, "kjbjj"];
-
-    function checkArrNumber(arrIn) {
-        var checkArr = true;
-        arrIn.forEach(function (item) {
-            if (typeof (item) !== "number"){
-                checkArr = false;
-            }
-        });
-        return checkArr;
-    }
-
-    function funUnit9 (arrIn, numDel) {
-        if (checkArrNumber(arrIn)) {
-            var countDel = 0;
-            arrIn.forEach(function (item, index) {
-                if (item < numDel) {
-                    arrIn.splice(index, 1);
-                    countDel++;
-                }
-            });
-            return countDel !== 0;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-    }
-
-    console.log("Число для удаления из массива первого задания ->", numDel);
-    console.log("Результат работы funUnit9 ->", funUnit9(arr10, numDel));
-
     //10) Дан массив чисел произвольной длинны. Сделать функцию, которая удаляет из исходного массива повторяющиеся
     // цифры в числе (новый массив НЕ делать). Функция должна возвращать результат в виде true/false: true - если
     // был удален, хотя бы 1 элемент, false - если не нашлось что удалить.
@@ -424,262 +200,39 @@
     console.log("Дан массив ->", arr2);
     console.log("Результат работы funUnit10 ->", funUnit10(arr2));
 
+    //Из предыдущего задания взять задачи под номерами 1, 5, 7, 8 и 10. Необходимо сделать реализацию этих
+    // функций через прототипное наследование, таким образом чтобы обозначенная в задаче функциональность была
+    // доступна в качестве встроенного метода для типа данных или массива, над которым производятся манипуляции в задаче.
+    //Например если в условии задачи написано, что она принимает на вход строку, с которой потом работает,
+    // тогда вам нужно сделать встроенный в String метод, который будет работать с исходной строкой (аналогично тому,
+    // как делали с преподапателем) и внутри этого метода обращаться к строке через this. Такие же требования для
+    // остальных задач, с разницей в типе функции обертке - Number,  Array.
 
+    //Дополнительные задачи:
 
-    //11) Дан массив чисел произвольной длинны. Сделать функцию, которая находит и возвращает 2 максимальных числа
-    // в полученном на вход массиве. Причем поиск должен осуществляться только по уникальным числам.
-    // Пример:
-    // дан массив с числами 1,2,3,4,5,5,5 - правильный результат будет 5 и 4, а не 5 и 5.
-    // Функция должна вернуть новый массив, содержащий результат поиска.
+    //6) Напишите функцию, доступную в качестве метода для любого массива, которая обрабатывает массив объектов.
+    // На вход функция должна принять переменную "имя поля". Далее обработать исходный массив и вернуть новый массив
+    // со значениями из всех объектов. Значения в каждом объекте взять из поля с названием, переданным в переменной
+    // в качестве параметра функции.
 
-    console.log("Задание 11");
+    //7) Напишите функцию, доступную в качестве метода для любого массива, которая принимает на вход 1 параметр -
+    // это число. Функция обрабатывает исходный массив и возвращает true/false - это результат проверки всех элементов
+    // массива на кратность числу, полученному в качестве параметра функции.
 
-    var arr3 = [2, 34, 55, 12, -118, 33, -45, 45, 55, 45, 55, 22, -11];
+    //8) Напишите функцию searchStr, доступную в качестве метода для любой строки, которая ищет в исходной
+    // строке подстроку - переменную полученную на вход в качестве параметра. Функция возвращает число -
+    // количество вхождений подстроки в строку.
 
-    function funUnit11 (arrIn) {
-        if (checkArrNumber(arrIn)){
-            var res = [];
-            arrIn.sort((a, b) => a - b);
-            console.log("Результат сортировки ->", arrIn);
-            for (var i = arrIn.length; 0 < i; i--) {
-                if (arrIn[i-1] !== arrIn[i-2]) {
-                    res.push(arrIn[i-1], arrIn[i-2]);
-                    break;
-                }
-            }
-            return res
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
+    //9) Напишите функцию insertStrTo, доступную в качестве метода для любой строки. Функция получает на вход 2
+    // параметра: 1й - позиция, 2й - подстрока. Функция должна вставить подстроку в исходную строку. Строка
+    // вставляется в позицию индекса равного значению переменной, которая была передана функции в качестве
+    // первого параметра. Если в позиции передается значение меньше нуля - вставка происходит в позицию с
+    // индексом ноль. Если в позиции передается значение больше длины строки - вставка происходит в позицию с
+    // индексом length-1 т.е. в конец строки. Функция должа менять исходную строку, а не возвращать результат в
+    // виде новой строки.
 
-    }
-    console.log("Дан массив ->", arr3);
-    console.log("Результат работы funUnit11 ->", funUnit11 (arr3));
-
-    //12) Дан массив чисел произвольной длинны. Сделать функцию, которая принимает на вход указанный выше массив,
-    // а так же второй параметр - переменную-флаг (может иметь значение "+" либо "-"). Функция должна удалить из
-    // исходного массива (новый массив не создавать), либо все положительные, либо все отрицательные числа,
-    // в зависимости от значения переменной-флага. Функция должна возвращать результат в виде true/false:
-    // true - если был удален, хотя бы 1 элемент, false - если не нашлось что удалить.
-
-    console.log("Задание 12");
-
-    var flag2 = prompt("Введите FLAG для Задания 12 в виде + или -", "+");
-
-    var arr4 = [2, 34, 55, 12, -118, 33, -45, 45, 55, 45, 55, 22, -11];
-    //var arr4 = [0, 0];
-
-    function funUnit12 (arrIn, flagIn) {
-        if (checkArrNumber(arrIn)){
-            var countDel = 0;
-            arrIn.forEach(function (item, index) {
-                if (flagIn === "-"){
-                    if (item < 0){
-                        arrIn.splice(index, 1);
-                        countDel++;
-                    }
-                } else {
-                    if (item > 0) {
-                        arrIn.splice(index, 1);
-                        countDel++;
-                    }
-                }
-            });
-            return countDel !== 0;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-
-    }
-    console.log("Дан массив ->", arr4);
-    console.log("Результат работы funUnit12 ->", funUnit12 (arr4, flag2));
-
-
-    //13) Дана строка произвольного текста. Сделать функцию, которая принимает на вход указанный выше текст,
-    // а так же второй параметр - строку подтекста. Функция должна вернуть число - количество вхождений строки
-    // подтекста в строку текста (сколько раз строка из второго параметра повторяется внутри строки из первого
-    // параметра). Задачу требуется реализовать, как встроенными в String средствами, так и полностью "в ручную",
-    // используя только for/if и пр
-
-    console.log("Задание 13");
-
-    var str6 = "Дана строка произвольного текста. Сделать функцию, текущая которая принимает утекающая на вход указанный выше текст";
-
-    var flag3 = prompt("Строка подтекста для задания 13", "тек");
-    //var flag3 = 123213;
-
-    //Вариант 1
-
-    function funUnit13_1 (strIn, flagIn){
-        if ((typeof (strIn) === "string") &&(typeof (flagIn) === "string")) {
-            var posDel = 0;
-            var countDel = 0;
-            while (true) {
-                if (strIn.indexOf(flagIn) > 0) {
-                    posDel = strIn.indexOf(flagIn) + flagIn.length;
-                    strIn = strIn.slice(posDel);
-                    countDel++;
-                } else {
-                    break
-                }
-
-            }
-            return countDel;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-    }
-
-    console.log("Дана строка ->", str6);
-    console.log("Строка поиска ->", flag3);
-    console.log("Результат работы funUnit13_1 ->", funUnit13_1(str6, flag3));
-
-    //Вариант 2
-
-    function funUnit13_2(strIn, flagIn) {
-        if ((typeof (strIn) === "string") &&(typeof (flagIn) === "string")) {
-            var countInt = 0;
-            for (var i = 0; i < strIn.length; i++) {
-                if (strIn[i] === flagIn[0]) {
-                    for (var k = 0; k < flagIn.length; k++) {
-                        if (strIn[i + k] === flagIn[k]) {
-                            if (flagIn.length === k + 1) {
-                                countInt++;
-                            }
-                        } else {
-                            break
-                        }
-                    }
-                }
-
-            }
-            return countInt;
-        } else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-    }
-
-    console.log("Дана строка ->", str6);
-    console.log("Строка поиска ->", flag3);
-    console.log("Результат работы funUnit13_2 ->", funUnit13_2(str6, flag3));
-
-    //14) Дана матрица чисел размером 10х10 (матрица - это массив массивов). Сделать функцию, которая  принимает
-    // на вход указанную выше матрицу и возвращает объект вида {index: NNN, sum: MMM}, где sum - это максимальная
-    // сумма строки матрицы, а NNN - это индекс той самой строки, в которой обнаруженная сумма всех элементов строки
-    // является максимальной в матрице.
-
-    console.log("Задание 14");
-
-    var mt1 = []
-    var mt2 = []
-    var mt3 = []
-    var mt4 = []
-    var mt5 = []
-    var mt6 = []
-    var mt7 = []
-    var mt8 = []
-    var mt9 = []
-    var mt10 = []
-
-    var mat = [mt1, mt2, mt3, mt4, mt5, mt6, mt7, mt8, mt9, mt10];
-
-    for (var i = 0; i < 10; i++) {
-        var a = 0;
-        var b = 5;
-        mt1.push(randomVal(a, b));
-        mt2.push(randomVal(a, b));
-        mt3.push(randomVal(a, b));
-        mt4.push(randomVal(a, b));
-        mt5.push(randomVal(a, b));
-        mt6.push(randomVal(a, b));
-        mt7.push(randomVal(a, b));
-        mt8.push(randomVal(a, b));
-        mt9.push(randomVal(a, b));
-        mt10.push(randomVal(a, b));
-    }
-
-    mat[5][3] = 25; //проверка работы
-    //mat[5][3] = "kdmsldm"; //проверка от дурака
-
-    function funUnit14 (matIn) {
-
-        for (var i = 0; i < matIn.length; i++){
-            var checkMat = true;
-            checkMat = checkArrNumber(matIn[i]);
-            if (checkMat === false) {
-                break
-            }
-            }
-
-        if (checkMat){
-            var res = {
-                index: 0,
-                sum: 0,
-            }
-
-            for (var i = 0; i < matIn.length; i++){
-                var sumTemp = 0;
-                for (var j = 0; j < matIn[i].length; j++){
-                    sumTemp += matIn[i][j];
-                }
-                if (res.sum < sumTemp) {
-                    res.sum = sumTemp;
-                    res.index = i;
-                }
-            }
-            return res;
-        }else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-
-    }
-
-    console.log("Дана матрица ->", mat);
-    console.log("Результат работы funUnit14 ->", funUnit14(mat));
-
-    //15) Реализовать тоже самое что в задаче 14, только для столбца матрицы.
-
-    console.log("Задание 15");
-
-    function funUnit15 (matIn) {
-        for (var i = 0; i < matIn.length; i++){
-            var checkMat = true;
-            checkMat = checkArrNumber(matIn[i]);
-            if (checkMat === false) {
-                break
-            }
-        }
-
-        if (checkMat){
-            var res = {
-                index: 0,
-                sum: 0,
-            }
-
-            for (var i = 0; i < matIn.length; i++){
-                var sumTemp = 0;
-                for (var j = 0; j < matIn[i].length; j++){
-                    sumTemp += matIn[j][i];
-                }
-                if (res.sum < sumTemp) {
-                    res.sum = sumTemp;
-                    res.index = i;
-                }
-            }
-            return res;
-        }else {
-            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
-            return null
-        }
-    }
-
-    console.log("Дана матрица ->", mat);
-    console.log("Результат работы funUnit14 ->", funUnit15(mat));
+    //Обратите внимание на термины "исходная строка", "исходный массив" - под этими терминами подразумевается
+    // строка или массив на который будет указывать this внутри разрабатываемой функции, когда ее будут выполнять.
 
 </script>
 </body>
