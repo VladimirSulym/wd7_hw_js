@@ -5,7 +5,7 @@
     <title>Javascript HW</title>
 </head>
 <body>
-<h1>Javascript Home Work 3</h1>
+<h1>Javascript Home Work 4</h1>
 <script>
 
     //Обязательное условие для всех функций, которые требуется реализовать: предусмотреть механизм под названием
@@ -29,6 +29,16 @@
     arr1.push(randomVal(-100, 100))}
 
     console.log("Значение arr1 ->", arr1);
+
+    function checkArrNumber(arrIn) {
+        var checkArr = true;
+        arrIn.forEach(function (item) {
+            if (typeof (item) !== "number"){
+                checkArr = false;
+            }
+        });
+        return checkArr;
+    }
 
     console.log("Задание 1")
 
@@ -64,6 +74,41 @@
     }
 
     console.log("Результат работы funUnit1 ->", funUnit1(arr1));
+
+    console.log("Задание 1 через прототипное наследование -------------------");
+
+    Array.prototype.funUnit1 = function () {
+        var objRes = {
+            totalPlus: 0,
+            totalMinus: 0,
+            totalZero: 0,
+        };
+        var checkArray = true;
+        this.forEach(function (item) {
+            if ((item < -100) || (item > 100) || typeof(item) !== "number") {
+                checkArray = false;
+            }
+        });
+        if (Array.isArray(this) && (this.length === 15) && checkArray){
+            this.forEach(function (item) {
+                if (item < 0) {
+                    objRes.totalMinus++
+                } else {
+                    if (item > 0) {
+                        objRes.totalPlus++
+                    } else {
+                        objRes.totalZero++
+                    }
+                }
+            });
+            return objRes;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null;
+        }
+    }
+
+    console.log("Результат работы funUnit1 через прототипное наследование ->", arr1.funUnit1());
 
     //5) Дана строка содержащая произвольной длинны число в виде текста. Создать функцию, которая принимает на
     // вход первым параметром переменную с текстом, вторым параметром переменную-флаг (может быть равной "AZ" либо "ZA").
@@ -102,6 +147,30 @@
     console.log("Дана строка ->", str2);
     console.log("Результат работы funUnit5 ->", funUnit5(str2, flag1));
 
+    console.log("Задание 5 через прототипное наследование -------------------");
+
+    String.prototype.funUnit5 = function (flagIn) {
+        var res = "";
+        if (((flagIn.codePointAt(0) === 97) || (flagIn.codePointAt(0) === 122)) && !isNaN(+this) && (flagIn.length === 2)) {
+            if (flagIn.codePointAt(0) === 97) {
+                res = this.split('');
+                res.sort();
+                return res.join('')
+            } else {
+                res = this.split('');
+                res.sort();
+                res.reverse();
+                return res.join('')
+            }
+        } else {
+            console.log("Введен не верный FLAG или строка")
+            return null;
+        }
+
+    }
+
+    console.log("Результат работы funUnit5 через прототипное наследование ->", str2.funUnit5(flag1));
+
     //7) Дано произвольное число разрядностью больше 5 (тип данных number). Необходимо сделать функцию, которая
     // считает сумму определенных цифр числа, полученного на вход, а именно  цифры 1я, 2я и последняя и предпоследняя.
     // Функция должна вернуть число -  результат работы.
@@ -129,6 +198,26 @@
     console.log("Дано число ->", num);
     console.log("Результат работы funUnit7 ->", funUnit7(num));
 
+    console.log("Задание 7 через прототипное наследование -------------------");
+
+    Number.prototype.funUnit7 = function () {
+        console.log(typeof this) //Почему Object?
+        if (typeof (+this) === "number"){ //(+this) исправляем прилетевший Object
+            var str = String (this);
+            console.log(str);
+            var res = 0;
+            for (var i = 1; i <= 2; i++) {
+                res = res+(+str[i-1])+(+str[str.length-i]);
+            }
+            return res;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
+        }
+
+    }
+
+    console.log("Результат работы funUnit7 через прототипное наследование ->", num.funUnit7());
 
     //8) Дана строка произвольного текста. Сделать функцию, которая принимает на вход строку текста и удаляет из
     // нее все символы, которые повторяются 2 и более раза друг за другом. Вернуть из функции результат в виде новой строки.
@@ -165,19 +254,84 @@
     console.log("Дана строка ->", str5);
     console.log("Результат работы funUnit8 ->", funUnit8(str5));
 
+    console.log("Задание 8 через прототипное наследование -------------------");
+
+    String.prototype.funUnit8 = function () {
+        console.log(typeof this); //Почему Object?
+        console.log(this);
+        var tempStr = JSON.stringify(this);
+        console.log("Результат JSON ->", tempStr);
+        if (typeof (tempStr) === "string") {
+            var countDel = 0; //счетчик удаления
+            var countArr = 0; //счетчик состояния нового массива
+            var arr = tempStr.split('');
+            for (var i = 0; i < tempStr.length; i++){
+                if (arr[countArr] === arr[countArr+1]) {
+                    arr.splice(countArr+1, 1);
+                    countDel++;
+                } else { if (countDel > 0){
+                    arr.splice(countArr, 1);
+                    countDel = 0;
+                } else {
+                    countArr++;
+                }
+                }
+            }
+            return arr.join('');
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
+        }
+
+    }
+
+    console.log("Результат работы funUnit8 через прототипное наследование ->", str5.funUnit8());
+
     //10) Дан массив чисел произвольной длинны. Сделать функцию, которая удаляет из исходного массива повторяющиеся
     // цифры в числе (новый массив НЕ делать). Функция должна возвращать результат в виде true/false: true - если
     // был удален, хотя бы 1 элемент, false - если не нашлось что удалить.
 
     console.log("Задание 10");
 
-    var arr2 = [2, 34, 55, 12, -115598, 33, -45, 3239900645, 8722, -11]
+    var arr2 = [2, 34, 55, 12, -115598, 33, -45, 3239900645, 8722, -11233566]
+    var arr3 = arr2.concat();
 
     function funUnit10 (arrIn) {
         if (checkArrNumber(arrIn)){
             var countDel = 0;
             arrIn.forEach(function (item, index) {
                 var str = funUnit8(String(item));
+                if (String(item) !== str) {
+                    if (((+str) === 0) || (isNaN(+str))) {
+                        arrIn.splice(index, 1);
+                        countDel++;
+
+                    } else {
+                        arrIn.splice(index, 1, (+str));
+                        countDel++;
+                    }
+                }
+            });
+            console.log("Результирующий массив ->", arrIn);
+            return countDel !== 0;
+        } else {
+            console.log("ОШИБКА! Данные не удовлетворяют требованиям");
+            return null
+        }
+
+    }
+
+    console.log("Дан массив ->", arr2);
+    console.log("Результат работы funUnit10 ->", funUnit10(arr2));
+
+    console.log("Задание 10 через прототипное наследование -------------------");
+
+    Array.prototype.funUnit10 = function () {
+        if (checkArrNumber(this)){
+            let countDel = 0;
+            let arrIn = this
+            this.forEach(function (item, index) {
+                let str = funUnit8(String(item));
                 if (String(item) !== str) {
                     if (((+str) === 0) || (isNaN(+str))) {
                         arrIn.splice(index, 1);
@@ -197,8 +351,7 @@
 
     }
 
-    console.log("Дан массив ->", arr2);
-    console.log("Результат работы funUnit10 ->", funUnit10(arr2));
+    console.log("Результат работы funUnit10 через прототипное наследование ->", arr3.funUnit10());
 
     //Из предыдущего задания взять задачи под номерами 1, 5, 7, 8 и 10. Необходимо сделать реализацию этих
     // функций через прототипное наследование, таким образом чтобы обозначенная в задаче функциональность была
