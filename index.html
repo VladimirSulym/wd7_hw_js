@@ -430,24 +430,39 @@
     Array.prototype.funUnit7_1 = function (numIn) {
         var res = true;
        this.forEach(function (item) {
-           console.log(item);
           if (item % numIn !== 0) {
-              console.log("not del")
               res = false;
           }
        });
        return res;
     };
     var numIn = 2;
-
+    console.log(`Дан массив ->`,arr6);
     console.log(`Ввели значение ${numIn} и получили результат - ${arr6.funUnit7_1(numIn)}`);
 
     //8) Напишите функцию searchStr, доступную в качестве метода для любой строки, которая ищет в исходной
     // строке подстроку - переменную полученную на вход в качестве параметра. Функция возвращает число -
     // количество вхождений подстроки в строку.
 
-    console.log("Задание 7_1 через прототипное наследование -------------------");
+    console.log("Задание 8_1 через прототипное наследование -------------------");
 
+    var str6 = "akjsdhaskljd1hakjsdha3ksdhakjsdhk3asjdh1kasjdh";
+
+    String.prototype.searchStr = function (strIn) {
+        var pos = 0;
+        var res = 0;
+        var searchStrlen = strIn.length;
+        while (true) {
+            var foundPos = this.indexOf(strIn, pos);
+            if (foundPos === -1) break;
+            res++;
+            pos = foundPos + searchStrlen;
+        }
+        return res;
+    };
+    var strIn = "js";
+    console.log(`Дана строка`, str6);
+    console.log(`Поиск строки ${strIn} дает результат ->`,str6.searchStr(strIn));
 
 
     //9) Напишите функцию insertStrTo, доступную в качестве метода для любой строки. Функция получает на вход 2
@@ -457,6 +472,27 @@
     // индексом ноль. Если в позиции передается значение больше длины строки - вставка происходит в позицию с
     // индексом length-1 т.е. в конец строки. Функция должа менять исходную строку, а не возвращать результат в
     // виде новой строки.
+
+    console.log("Задание 9_1 через прототипное наследование -------------------");
+
+    String.prototype.insertStrTo = function (pos, strIn) {
+        var mas = this.split("");
+        if (pos <= 0) {
+            mas.unshift(strIn);
+        } else {
+            if (pos > this.length) {
+                mas.push(strIn)
+            } else {
+                mas.splice(pos, 0, strIn)
+            }
+        }
+        return mas.join("");
+    }
+
+    strIn = "UUUUUUU";
+    numIn = 10;
+    console.log(`Добавляем -> ${strIn} на позицию -> ${numIn}`)
+    console.log(`Получаем результат ->`,str6.insertStrTo(numIn, strIn));
 
     //Обратите внимание на термины "исходная строка", "исходный массив" - под этими терминами подразумевается
     // строка или массив на который будет указывать this внутри разрабатываемой функции, когда ее будут выполнять.
