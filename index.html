@@ -368,13 +368,87 @@
     // со значениями из всех объектов. Значения в каждом объекте взять из поля с названием, переданным в переменной
     // в качестве параметра функции.
 
+    console.log("Задание 6_1 через прототипное наследование -------------------");
+
+    var obj1 = {
+        name: "Max",
+        sname: "Ivanov",
+        age: 12,
+        city: "Moscow",
+    };
+    var obj2 = {
+        name: "Nina",
+        sname: "Petrov",
+        age: 23,
+        city: "LA",
+    };
+    var obj3 = {
+        name: "Anna",
+        sname: "Semenov",
+        age: 34,
+        city: "NY",
+    };
+    var obj4 = {
+        name: "Bob",
+        sname: "Egorov",
+        age: 21,
+        city: "SPb",
+    };
+    var obj5 = {
+        name: "Neo",
+        sname: "Panin",
+        age: 27,
+        city: "Tver",
+    };
+    var arr4 = [obj1, obj2, obj3, obj4, obj5];
+
+    console.log(arr4);
+
+    Array.prototype.funUnit6_1 = function (nameField) {
+        return this.map (function (item) {
+            for (var key in item) {
+                if ( key === nameField) {
+                    return item[key];
+                }
+            }
+            }
+        )
+    };
+
+    var nameField = "name";
+    var arr5 = arr4.funUnit6_1(nameField);
+    console.log(`Ввели имя поля ${nameField} и получили массив ->`, arr5);
+
     //7) Напишите функцию, доступную в качестве метода для любого массива, которая принимает на вход 1 параметр -
     // это число. Функция обрабатывает исходный массив и возвращает true/false - это результат проверки всех элементов
     // массива на кратность числу, полученному в качестве параметра функции.
 
+    console.log("Задание 7_1 через прототипное наследование -------------------");
+
+    var arr6 = arr1;
+
+    Array.prototype.funUnit7_1 = function (numIn) {
+        var res = true;
+       this.forEach(function (item) {
+           console.log(item);
+          if (item % numIn !== 0) {
+              console.log("not del")
+              res = false;
+          }
+       });
+       return res;
+    };
+    var numIn = 2;
+
+    console.log(`Ввели значение ${numIn} и получили результат - ${arr6.funUnit7_1(numIn)}`);
+
     //8) Напишите функцию searchStr, доступную в качестве метода для любой строки, которая ищет в исходной
     // строке подстроку - переменную полученную на вход в качестве параметра. Функция возвращает число -
     // количество вхождений подстроки в строку.
+
+    console.log("Задание 7_1 через прототипное наследование -------------------");
+
+
 
     //9) Напишите функцию insertStrTo, доступную в качестве метода для любой строки. Функция получает на вход 2
     // параметра: 1й - позиция, 2й - подстрока. Функция должна вставить подстроку в исходную строку. Строка
